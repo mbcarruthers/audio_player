@@ -1,5 +1,6 @@
 #include "dialog.h"
 #include "ui_dialog.h"
+#include "variables.h"
 #include <QUrl>
 
 Dialog::Dialog(QWidget *parent) :
@@ -9,8 +10,8 @@ Dialog::Dialog(QWidget *parent) :
     ui->setupUi(this);
     player = new QMediaPlayer(this);
 
-    connect( player , &QMediaPlayer::positionChanged , this , &Dialog::on_positionChanged );
-    connect( player , &QMediaPlayer::durationChanged , this , &Dialog::on_durationChanged );
+    connect( player , &QMediaPlayer::positionChanged , this , &Dialog::on_position_changed );
+    connect( player , &QMediaPlayer::durationChanged , this , &Dialog::on_duration_changed );
 }
 
 Dialog::~Dialog()
@@ -30,7 +31,7 @@ void Dialog::on_volume_slider_sliderMoved(int position)
 
 void Dialog::on_start_button_clicked()
 {
-    player->setMedia(QUrl::fromLocalFile("/Users/mccaincarruthers/Documents/Q_tuts/core/audio_player/Disintegration.mp3"));
+    player->setMedia(QUrl::fromLocalFile(variables::audio_file));
     player->play();
     qDebug() << player->errorString();
 
@@ -41,12 +42,12 @@ void Dialog::on_stop_button_clicked()
    player->stop();
 }
 
-void Dialog::on_positionChanged( qint64 position )
+void Dialog::on_position_changed( qint64 position )
 {
     ui->progress_slider->setValue(position);
 }
 
-void Dialog::on_durationChanged( qint64 position )
+void Dialog::on_duration_changed( qint64 position )
 {
     ui->progress_slider->setMaximum(position);
 }

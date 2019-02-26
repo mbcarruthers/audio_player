@@ -26,9 +26,9 @@ private slots:
 
     void on_stop_button_clicked();
 
-    void on_durationChanged( qint64 position );
+    void on_duration_changed( qint64 position );
 
-    void on_positionChanged( qint64 position );
+    void on_position_changed( qint64 position );
 
 private:
     Ui::Dialog *ui;
