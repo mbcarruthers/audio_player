@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QMediaPlayer>
 #include <QDebug>
+#include <QFileDialog>
 
 namespace Ui {
 class Dialog;
@@ -30,9 +31,12 @@ private slots:
 
     void on_position_changed( qint64 position );
 
+    void on_file_button_clicked();
+
 private:
     Ui::Dialog *ui;
     QMediaPlayer* player;
+    QString file_name{};
 };
 
 #endif // DIALOG_H
