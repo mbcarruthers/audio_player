@@ -89,7 +89,7 @@ void Dialog::on_duration_changed( qint64 position )
 void Dialog::on_file_button_clicked()
 {
     player->pause();
-    file_name = QFileDialog::getOpenFileName(this,tr("Open File"),variables::path,tr("mp3 (*.mp3)"));
+    file_name = QFileDialog::getOpenFileName(this,tr("Open File"),variables::path,tr("mp3 (*.mp3 , *.mpeg)"));
 
     if( file_name.isEmpty() )
     {
@@ -110,20 +110,26 @@ void Dialog::set_available_metadata()
     QString song_info{}; //TODO: name that variable better.line 129 might come off as confusing
     if( !player->metaData(QMediaMetaData::ContributingArtist).toString().isNull() )
     {
-        qDebug() << player->metaData(QMediaMetaData::ContributingArtist).toString();
+//        qDebug() << player->metaData(QMediaMetaData::ContributingArtist).toString();
         song_info.append(player->metaData(QMediaMetaData::ContributingArtist).toString() + "\n");
     }
 
     if( !player->metaData(QMediaMetaData::AlbumTitle).toString().isNull() )
     {
-        qDebug() << player->metaData(QMediaMetaData::AlbumTitle).toString();
+//        qDebug() << player->metaData(QMediaMetaData::AlbumTitle).toString();
         song_info.append(player->metaData(QMediaMetaData::AlbumTitle).toString()+ "\n");
     }
     if( !player->metaData(QMediaMetaData::Title).toString().isNull() )
     {
 
-        qDebug() << player->metaData(QMediaMetaData::Title).toString();
+//        qDebug() << player->metaData(QMediaMetaData::Title).toString();
         song_info.append(player->metaData(QMediaMetaData::Title).toString());
+    }
+    // apparently none of my music has album artwork associated with it when it does
+    // so i've got this to give me an extra message if something does show up
+    if( !player->metaData(QMediaMetaData::CoverArtImage).value<QImage>().isNull() )
+    {
+        qDebug() << "Album has cover art!";
     }
 
     ui->song_info->setText(song_info);
