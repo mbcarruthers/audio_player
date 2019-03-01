@@ -4,7 +4,10 @@
 #include <QDialog>
 #include <QMediaPlayer>
 #include <QDebug>
+#include <QFileInfo>
 #include <QFileDialog>
+#include <QLabel>
+#include <QMediaMetaData>
 
 namespace Ui {
 class Dialog;
@@ -20,7 +23,6 @@ public:
 
 private slots:
     void on_progress_slider_sliderMoved( int position );
-
     void on_volume_slider_sliderMoved( int position );
 
     void on_start_button_clicked();
@@ -37,6 +39,9 @@ private:
     Ui::Dialog *ui;
     QMediaPlayer* player;
     QString file_name{};
+    QFileInfo file;
+
+    void set_available_metadata();
 };
 
 #endif // DIALOG_H
