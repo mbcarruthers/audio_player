@@ -107,7 +107,7 @@ void Dialog::on_file_button_clicked()
 //==============================================================================
 void Dialog::set_available_metadata()
 {
-    QString song_info{}; //TODO: name that variable better.line 123 might come off as confusing
+    QString song_info{}; //TODO: name that variable better.line 129 might come off as confusing
     if( !player->metaData(QMediaMetaData::ContributingArtist).toString().isNull() )
     {
         qDebug() << player->metaData(QMediaMetaData::ContributingArtist).toString();
