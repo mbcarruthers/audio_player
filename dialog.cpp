@@ -49,11 +49,8 @@ void Dialog::on_volume_slider_sliderMoved(int position)
 //==============================================================================
 void Dialog::on_start_button_clicked()
 {
-    player->setMedia( QUrl::fromLocalFile(file_name) );
-
+//    player->setMedia( QUrl::fromLocalFile(file_name) );
     player->play();
-
-
     if( !player->errorString().isEmpty() ) {
         qDebug() << player->errorString();
         QMessageBox::warning(this,
@@ -70,7 +67,7 @@ void Dialog::on_start_button_clicked()
 //==============================================================================
 void Dialog::on_stop_button_clicked()
 {
-   player->stop();
+   player->pause();
    //TODO: set the progress_slider's position to zero
    ui->stop_button->setEnabled(false);
    ui->start_button->setEnabled(true);
@@ -88,19 +85,21 @@ void Dialog::on_duration_changed( qint64 position )
 //==============================================================================
 void Dialog::on_file_button_clicked()
 {
-    player->pause();
-    file_name = QFileDialog::getOpenFileName(this,tr("Open File"),variables::path,tr("mp3 (*.mp3 , *.mpeg)"));
+    QString temp = QFileDialog::getOpenFileName(this,tr("Open File"),variables::path,tr("mp3 (*.mp3 , *.mpeg, *.m4a)"));
 
-    if( file_name.isEmpty() )
+    if( temp.isEmpty() && !file_name.isEmpty() )
+        {
+            ui->start_button->setEnabled(true);
+        }
+    else if( !temp.isEmpty() ){
+        player->stop();
+           ui->start_button->setEnabled(true);
+           file_name = temp;
+           player->setMedia( QUrl::fromLocalFile(file_name) );
+        }
+    else if( temp.isEmpty() )
     {
         qDebug() << "File is empty";
-        if(file.exists()) {
-            file_name = file.filePath();
-        }
-    } else {
-       ui->start_button->setEnabled(true);
-       file.setFile(file_name);
-//       ui->song_info->setText(file.completeBaseName());
 
     }
 }
@@ -110,19 +109,16 @@ void Dialog::set_available_metadata()
     QString song_info{}; //TODO: name that variable better.line 129 might come off as confusing
     if( !player->metaData(QMediaMetaData::ContributingArtist).toString().isNull() )
     {
-//        qDebug() << player->metaData(QMediaMetaData::ContributingArtist).toString();
         song_info.append(player->metaData(QMediaMetaData::ContributingArtist).toString() + "\n");
     }
 
     if( !player->metaData(QMediaMetaData::AlbumTitle).toString().isNull() )
     {
-//        qDebug() << player->metaData(QMediaMetaData::AlbumTitle).toString();
         song_info.append(player->metaData(QMediaMetaData::AlbumTitle).toString()+ "\n");
     }
     if( !player->metaData(QMediaMetaData::Title).toString().isNull() )
     {
 
-//        qDebug() << player->metaData(QMediaMetaData::Title).toString();
         song_info.append(player->metaData(QMediaMetaData::Title).toString());
     }
     // apparently none of my music has album artwork associated with it when it does
@@ -135,3 +131,4 @@ void Dialog::set_available_metadata()
     ui->song_info->setText(song_info);
 }
 //==============================================================================
+

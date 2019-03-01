@@ -39,7 +39,6 @@ private:
     Ui::Dialog *ui;
     QMediaPlayer* player;
     QString file_name{};
-    QFileInfo file;
 
     void set_available_metadata();
 };
