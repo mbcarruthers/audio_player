@@ -14,8 +14,9 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:rgb(51,51,51);
-color:rgb(231,231,234);</string>
+   <string notr="true">background-color:black;
+color:rgb(231,231,234);
+border:1px solid cyan;</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -93,11 +94,12 @@ font-weight:bold;
         <widget class="QPushButton" name="start_button">
          <property name="styleSheet">
           <string notr="true">font-family:Avenir Next;
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(53, 224, 10, 1), stop:1 rgba(135, 243, 107, 1));
+background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(53, 224, 10, 1), stop:1 rgba(135, 243, 107, 1));
 font-weight:bold;
 border-radius:4px;
 border:1px ;
-border-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(53, 224, 10, 1), stop:1 rgba(135, 243, 107, 1));</string>
+border-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(53, 224, 10, 1), stop:1 rgba(135, 243, 107, 1));
+</string>
          </property>
          <property name="text">
           <string>Start</string>
@@ -115,6 +117,7 @@ border-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(53,
         <widget class="QPushButton" name="stop_button">
          <property name="styleSheet">
           <string notr="true">font-family:Avenir Next;
+color:white;
 font-weight:bold;
 border-radius:4px;
 border:1px;

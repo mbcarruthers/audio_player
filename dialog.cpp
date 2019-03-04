@@ -49,7 +49,6 @@ void Dialog::on_volume_slider_sliderMoved(int position)
 //==============================================================================
 void Dialog::on_start_button_clicked()
 {
-//    player->setMedia( QUrl::fromLocalFile(file_name) );
     player->play();
     if( !player->errorString().isEmpty() ) {
         qDebug() << player->errorString();
@@ -68,7 +67,7 @@ void Dialog::on_start_button_clicked()
 void Dialog::on_stop_button_clicked()
 {
    player->pause();
-   //TODO: set the progress_slider's position to zero
+
    ui->stop_button->setEnabled(false);
    ui->start_button->setEnabled(true);
 }
@@ -125,8 +124,11 @@ void Dialog::set_available_metadata()
     // so i've got this to give me an extra message if something does show up
     if( !player->metaData(QMediaMetaData::CoverArtImage).value<QImage>().isNull() )
     {
-        qDebug() << "Album has cover art!";
+        QMessageBox::information(this,
+                                 "!",
+                                 "This file has an album cover associated with it!");
     }
+
 
     ui->song_info->setText(song_info);
 }
