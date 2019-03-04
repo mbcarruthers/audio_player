@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include <QFileInfo>
 //==============================================================================
+// constructor - destructor
+//==============================================================================
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
@@ -31,22 +33,25 @@ Dialog::Dialog(QWidget *parent) :
         set_available_metadata();
     });
 }
-//==============================================================================
+
 Dialog::~Dialog()
 {
     delete ui;
 }
 //==============================================================================
+// Private Slots
+//==============================================================================
+
 void Dialog::on_progress_slider_sliderMoved(int position)
 {
    player->setPosition(position);
 }
-//==============================================================================
+
 void Dialog::on_volume_slider_sliderMoved(int position)
 {
     player->setVolume(position);
 }
-//==============================================================================
+
 void Dialog::on_start_button_clicked()
 {
     player->play();
@@ -63,7 +68,7 @@ void Dialog::on_start_button_clicked()
 
 
 }
-//==============================================================================
+
 void Dialog::on_stop_button_clicked()
 {
    player->pause();
@@ -71,17 +76,17 @@ void Dialog::on_stop_button_clicked()
    ui->stop_button->setEnabled(false);
    ui->start_button->setEnabled(true);
 }
-//==============================================================================
+
 void Dialog::on_position_changed( qint64 position )
 {
     ui->progress_slider->setValue(position);
 }
-//==============================================================================
+
 void Dialog::on_duration_changed( qint64 position )
 {
     ui->progress_slider->setMaximum(position);
 }
-//==============================================================================
+
 void Dialog::on_file_button_clicked()
 {
     QString temp = QFileDialog::getOpenFileName(this,tr("Open File"),variables::path,tr("mp3 (*.mp3 , *.mpeg, *.m4a)"));
@@ -103,6 +108,9 @@ void Dialog::on_file_button_clicked()
     }
 }
 //==============================================================================
+// Private Functions
+//==============================================================================
+
 void Dialog::set_available_metadata()
 {
     QString song_info{}; //TODO: name that variable better.line 129 might come off as confusing
@@ -132,5 +140,5 @@ void Dialog::set_available_metadata()
 
     ui->song_info->setText(song_info);
 }
-//==============================================================================
+
 
